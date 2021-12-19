@@ -77,7 +77,7 @@ public class PairMatchingController {
             ProgramInfo programInfo = ProgramInfoTransformer.makeProgramInfo(inputView.determineProgramInfo());
             return programInfo;
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            OutputView.showErrorMessage(e);
             return matchPairs();
         }
     }
