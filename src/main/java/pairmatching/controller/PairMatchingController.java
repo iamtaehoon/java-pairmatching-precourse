@@ -12,7 +12,7 @@ import pairmatching.view.OutputView;
 public class PairMatchingController {
     PairMatchingService pairMatchingService = new PairMatchingService();
     InputView inputView = new InputView();
-    MainCode mainCode = MainCode.MATCHING;
+    MainCode mainCode = null;
 
     public void run() {
         try {
@@ -30,13 +30,7 @@ public class PairMatchingController {
                 break;
             }
             if (mainCode == MainCode.MATCHING) {
-                ProgramInfo programInfo = matchPairs();
-                if (!isRematching(programInfo)) {
-                    continue;
-                }
-                pairMatchingService.matchPairs(programInfo);
-                OutputView.showThisProgramPair(programInfo);
-
+                matchingPairs();
             }
             if (mainCode == MainCode.SEARCH) {
                 searchProgramsPair();
@@ -44,6 +38,14 @@ public class PairMatchingController {
             if (mainCode == MainCode.INITIALIZE) {
                 pairMatchingService.clearAllMatchingInfo();
             }
+        }
+    }
+
+    private void matchingPairs() {
+        ProgramInfo programInfo = matchPairs();
+        if (isRematching(programInfo)) {
+            pairMatchingService.matchPairs(programInfo);
+            OutputView.showThisProgramPair(programInfo);
         }
     }
 
