@@ -18,7 +18,7 @@ public class OutputView {
     private static void isOddCnt(LinkedHashMap<Crew, Crew> pairs) {
         int i = 0;
         for (Crew crew : pairs.keySet()) {
-            if (i == pairs.size() - 2) {
+            if (i == pairs.size() - 3) {
                 System.out.println(crew + " : " + pairs.get(crew) + " : " + pairs.get(pairs.get(crew)));
                 break;
             }
