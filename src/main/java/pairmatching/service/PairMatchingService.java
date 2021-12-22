@@ -105,10 +105,7 @@ public class PairMatchingService {
         return programInfoRepository.getSameProgramInfo(programInfo);
     }
 
-    public void rematchPairs(ProgramInfo programInfo) {
-        // 지워준다.
+    public void deleteMatching(ProgramInfo programInfo) {
         programInfoRepository.delete(programInfo);
-        matchPairs(programInfo);
-
     }
 }

@@ -30,10 +30,10 @@ public class PairMatchingController {
                 break;
             }
             if (mainCode == MainCode.MATCHING) {
-                matchingPairs();
+                executeMatchingPairs();
             }
             if (mainCode == MainCode.SEARCH) {
-                searchProgramsPair();
+                executeSearchingPairs();
             }
             if (mainCode == MainCode.INITIALIZE) {
                 pairMatchingService.clearAllMatchingInfo();
@@ -41,47 +41,43 @@ public class PairMatchingController {
         }
     }
 
-    private void matchingPairs() {
-        ProgramInfo programInfo = matchPairs();
-        if (isRematching(programInfo)) {
-            //해당 programInfo를 먼저 지워준다.
-            pairMatchingService.rematchPairs(programInfo);
-            OutputView.showThisProgramPair(programInfo);
-        }
-    }
-
-    private boolean isRematching(ProgramInfo programInfo) {
+    private void executeMatchingPairs() {
+        ProgramInfo programInfo = makeProgramInfo();
         if (pairMatchingService.isAlreadyMatching(programInfo)) {
             String rematchingCode = inputView.determineReMatching();
             if (rematchingCode.equals("아니오")) {
-                return false;
+                return;
             }
             if (rematchingCode.equals("네")) {
-                programInfo.clearPairs();
-                return true;
+                pairMatchingService.deleteMatching(programInfo);
             }
             throw new IllegalArgumentException(INVALID_INPUT_ERROR);
         }
-        return true;
+        putPairsInProgramInfo(programInfo);
     }
 
-    private void searchProgramsPair() {
+    private void putPairsInProgramInfo(ProgramInfo programInfo) {
+        pairMatchingService.matchPairs(programInfo);
+        OutputView.showThisProgramPair(programInfo);
+    }
+
+    private void executeSearchingPairs() {
         ProgramInfo programInfo = ProgramInfoTransformer.makeProgramInfo(inputView.determineProgramInfo());
         if (pairMatchingService.hasProgramInfo(programInfo)) {
             programInfo = pairMatchingService.getThisProgramInfo(programInfo);
             OutputView.showThisProgramPair(programInfo);
             return;
         }
-        OutputView.showThisMissionIsNotMatchingMessage();
+        throw new IllegalArgumentException(MACHING_INFO_NOT_EXIST_YET_ERROR);
     }
 
-    private ProgramInfo matchPairs() {
+    private ProgramInfo makeProgramInfo() {
         try {
             ProgramInfo programInfo = ProgramInfoTransformer.makeProgramInfo(inputView.determineProgramInfo());
             return programInfo;
         } catch (IllegalArgumentException e) {
             OutputView.showErrorMessage(e);
-            return matchPairs();
+            return makeProgramInfo();
         }
     }
 }
