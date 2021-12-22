@@ -6,7 +6,7 @@ import pairmatching.domain.Crew;
 import pairmatching.domain.ProgramInfo;
 
 public class OutputView {
-    public static void showThisProgramPair(ProgramInfo programInfo) { // TODO 홀수 짝수 나눠서 해주기.
+    public static void showThisMatchingResult(ProgramInfo programInfo) { // TODO 홀수 짝수 나눠서 해주기.
         System.out.println("\n페어 매칭 결과입니다.");
         LinkedHashMap<Crew, Crew> pairs = programInfo.getPairs();
 

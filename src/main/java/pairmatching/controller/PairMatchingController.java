@@ -58,14 +58,14 @@ public class PairMatchingController {
 
     private void putPairsInProgramInfo(ProgramInfo programInfo) {
         pairMatchingService.matchPairs(programInfo);
-        OutputView.showThisProgramPair(programInfo);
+        OutputView.showThisMatchingResult(programInfo);
     }
 
     private void executeSearchingPairs() {
         ProgramInfo programInfo = makeProgramInfo();
         if (pairMatchingService.hasProgramInfo(programInfo)) {
             programInfo = pairMatchingService.getThisProgramInfo(programInfo);
-            OutputView.showThisProgramPair(programInfo);
+            OutputView.showThisMatchingResult(programInfo);
             return;
         }
         throw new IllegalArgumentException(MACHING_INFO_NOT_EXIST_YET_ERROR);
