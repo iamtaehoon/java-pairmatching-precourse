@@ -62,7 +62,7 @@ public class PairMatchingController {
     }
 
     private void executeSearchingPairs() {
-        ProgramInfo programInfo = ProgramInfoTransformer.makeProgramInfo(inputView.determineProgramInfo());
+        ProgramInfo programInfo = makeProgramInfo();
         if (pairMatchingService.hasProgramInfo(programInfo)) {
             programInfo = pairMatchingService.getThisProgramInfo(programInfo);
             OutputView.showThisProgramPair(programInfo);
