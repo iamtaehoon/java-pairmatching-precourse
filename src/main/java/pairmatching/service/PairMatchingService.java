@@ -56,26 +56,24 @@ public class PairMatchingService {
     private boolean isAlreadyMatch(List<Crew> shuffledCrews, ProgramInfo programInfo) {
         boolean alreadyMatch = false;
         int crewsCnt = shuffledCrews.size();
-        for (int i = 0; i < crewsCnt / 2; i++) {
+        for (int i = 0; i < crewsCnt / 2; i++) { //향상된 for문을 이런 상황에서 어떻게 쓰지? 2개씩 비교.
             alreadyMatch = programInfoRepository.checkTwoCrewsAlreadyMatch(programInfo, shuffledCrews.get(i * 2),
                 shuffledCrews.get(i * 2 + 1));
             if (alreadyMatch) {
-                return alreadyMatch;
+                return true;
             }
         }
-        if (crewsCnt % 2 == 1) {
-            alreadyMatch = isAlreadyMatchOnLastThreeCrew(programInfo, shuffledCrews, crewsCnt);
+        if (crewsCnt % 2 == 0) {
+            return alreadyMatch;
         }
-        return alreadyMatch;
+        return checkLastThreeCrewIfCrewsCntIsOdd(shuffledCrews, programInfo);
     }
 
-    private boolean isAlreadyMatchOnLastThreeCrew(ProgramInfo programInfo, List<Crew> shuffledCrews, int crewsCnt) {
-        boolean alreadyMatch;
-        alreadyMatch = programInfoRepository.checkTwoCrewsAlreadyMatch(programInfo, shuffledCrews.get(crewsCnt - 1),
+    private boolean checkLastThreeCrewIfCrewsCntIsOdd(List<Crew> shuffledCrews, ProgramInfo programInfo) {
+        int crewsCnt = shuffledCrews.size();
+        return programInfoRepository.checkTwoCrewsAlreadyMatch(programInfo, shuffledCrews.get(crewsCnt - 1),
             shuffledCrews.get(crewsCnt - 2)) | programInfoRepository.checkTwoCrewsAlreadyMatch(programInfo,
-            shuffledCrews.get(crewsCnt - 1),
-            shuffledCrews.get(crewsCnt - 3));
-        return alreadyMatch;
+            shuffledCrews.get(crewsCnt - 1), shuffledCrews.get(crewsCnt - 3));
     }
 
     private ArrayList<Crew> getCrewsUsingCourse(ProgramInfo programInfo) {
