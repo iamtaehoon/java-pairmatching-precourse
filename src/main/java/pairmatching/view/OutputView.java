@@ -10,12 +10,14 @@ public class OutputView {
         System.out.println("\n페어 매칭 결과입니다.");
         LinkedHashMap<Crew, Crew> pairs = programInfo.getPairs();
 
-        if (isEvenCnt(pairs))
+        if (pairs.size() % 2 == 0) {
+            showPairsIfItIsEven(pairs);
             return;
-        isOddCnt(pairs);
+        }
+        showPairsIfItIsOdd(pairs);
     }
 
-    private static void isOddCnt(LinkedHashMap<Crew, Crew> pairs) {
+    private static void showPairsIfItIsOdd(LinkedHashMap<Crew, Crew> pairs) {
         int i = 0;
         for (Crew crew : pairs.keySet()) {
             if (i == pairs.size() - 3) {
@@ -28,15 +30,11 @@ public class OutputView {
         System.out.println("\n");
     }
 
-    private static boolean isEvenCnt(LinkedHashMap<Crew, Crew> pairs) {
-        if (pairs.size() % 2 == 0) {
-            for (Crew crew : pairs.keySet()) {
-                System.out.println(crew + " : " + pairs.get(crew));
-            }
-            System.out.println("\n");
-            return true;
+    private static void showPairsIfItIsEven(LinkedHashMap<Crew, Crew> pairs) {
+        for (Crew crew : pairs.keySet()) {
+            System.out.println(crew + " : " + pairs.get(crew));
         }
-        return false;
+        System.out.println("\n");
     }
 
     public static void showErrorMessage(IllegalArgumentException e) {
