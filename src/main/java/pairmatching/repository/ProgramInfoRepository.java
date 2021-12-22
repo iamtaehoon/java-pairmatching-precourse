@@ -40,4 +40,8 @@ public class ProgramInfoRepository {
             .findAny()
             .orElseThrow(() -> new IllegalArgumentException(NO_OBJECT_ERROR));
     }
+
+    public void delete(ProgramInfo programInfo) {
+        programInfos.remove(programInfo);
+    }
 }

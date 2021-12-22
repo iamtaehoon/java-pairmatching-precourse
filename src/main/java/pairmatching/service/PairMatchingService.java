@@ -104,4 +104,11 @@ public class PairMatchingService {
     public ProgramInfo getThisProgramInfo(ProgramInfo programInfo) {
         return programInfoRepository.getSameProgramInfo(programInfo);
     }
+
+    public void rematchPairs(ProgramInfo programInfo) {
+        // 지워준다.
+        programInfoRepository.delete(programInfo);
+        matchPairs(programInfo);
+
+    }
 }

@@ -44,7 +44,8 @@ public class PairMatchingController {
     private void matchingPairs() {
         ProgramInfo programInfo = matchPairs();
         if (isRematching(programInfo)) {
-            pairMatchingService.matchPairs(programInfo);
+            //해당 programInfo를 먼저 지워준다.
+            pairMatchingService.rematchPairs(programInfo);
             OutputView.showThisProgramPair(programInfo);
         }
     }
