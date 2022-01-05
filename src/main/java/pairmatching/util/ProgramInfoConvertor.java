@@ -13,7 +13,7 @@ public class ProgramInfoConvertor {
 
     private static void validateProgramDetailsCnt(String[] programDetailsPreProcessing) {
         if (programDetailsPreProcessing.length != PROGRAM_INFO_DETAILS_CNT) {
-            throw new IllegalStateException("입력값의 양식이 잘못되었습니다.");
+            throw new IllegalArgumentException("입력값의 양식이 잘못되었습니다.");
         }
     }
 }

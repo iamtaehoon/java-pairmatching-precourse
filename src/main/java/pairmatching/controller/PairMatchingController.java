@@ -24,8 +24,13 @@ public class PairMatchingController {
 
     public void run() {
         while (mainCode != MainCode.QUIT) {
-            mainCode = chooseMainFunction();
-            executeFunction(mainCode);
+            try {
+                mainCode = chooseMainFunction();
+                executeFunction(mainCode);
+            } catch (IllegalArgumentException e) {
+                OutputView.showErrorMessage(e);
+                run();
+            }
         }
     }
 
@@ -50,9 +55,7 @@ public class PairMatchingController {
     }
 
     private void executePairInquery() {
-        String programInfoPreProcessing = InputView.chooseProgramInfo();
-        ProgramInfo programInfo = ProgramInfoConvertor.makeProgramInfo(programInfoPreProcessing);
-        //프로그램이 있는가 검사를 해준다.
+        ProgramInfo programInfo = makeProgramInfoUsingInput();
         if (pairMatchingService.havePairThisProgramInfo(programInfo)) {
             List<String> thisProgramsPair = pairMatchingService.getThisProgramsPair(programInfo);
             OutputView.showResult(thisProgramsPair);
@@ -62,25 +65,41 @@ public class PairMatchingController {
     }
 
     private void executePairMatching() {
-        String programInfoPreProcessing = InputView.chooseProgramInfo();
-        ProgramInfo programInfo = ProgramInfoConvertor.makeProgramInfo(programInfoPreProcessing);
+        ProgramInfo programInfo = makeProgramInfoUsingInput();
         boolean alreadyHavePair = checkThisProgramInfoAlreadyHavePair(programInfo);
         if (!alreadyHavePair) {
             pairMatchingService.makePairThisProgramInfo(chooseCrews(programInfo),programInfo);
         }
-        List<String> thisProgramsPair = pairMatchingService.getThisProgramsPair(programInfo);
-        OutputView.showResult(thisProgramsPair);
+        OutputView.showResult(pairMatchingService.getThisProgramsPair(programInfo));
+    }
+
+    private ProgramInfo makeProgramInfoUsingInput() {
+        try {
+            String programInfoPreProcessing = InputView.chooseProgramInfo();
+            return ProgramInfoConvertor.makeProgramInfo(programInfoPreProcessing);
+        } catch (IllegalArgumentException e) {
+            OutputView.showErrorMessage(e);
+            return makeProgramInfoUsingInput();
+        }
     }
 
     private boolean checkThisProgramInfoAlreadyHavePair(ProgramInfo programInfo) {
         if (pairMatchingService.alreadyHavePair(programInfo)) {
-            RematchCode rematchCode = RematchCode.find(InputView.chooseReMatching()); //TODO 없으면 재입력 받아야함.
-            if (rematchCode == RematchCode.YES) {
-                pairMatchingService.remakePairThisProgramInfo(chooseCrews(programInfo),programInfo);
-            }
+            checkRematching(programInfo);
             return true;
         }
         return false;
+    }
+
+    private void checkRematching(ProgramInfo programInfo) {
+        try {
+            RematchCode rematchCode = RematchCode.find(InputView.chooseReMatching()); //TODO 없으면 재입력 받아야함.
+            if (rematchCode == RematchCode.YES) {
+                pairMatchingService.remakePairThisProgramInfo(chooseCrews(programInfo), programInfo);
+            }
+        } catch (IllegalArgumentException e) {
+            OutputView.showErrorMessage(e);
+        }
     }
 
     private List<String> chooseCrews(ProgramInfo programInfo) {
