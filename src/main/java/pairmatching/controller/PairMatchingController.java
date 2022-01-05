@@ -34,7 +34,7 @@ public class PairMatchingController {
             executePairMatching();
         }
         if (mainCode == MainCode.INQUERY) {
-            // executePairInquery();
+            executePairInquery();
         }
         if (mainCode == MainCode.RESET) {
             // executeReset();
@@ -42,6 +42,17 @@ public class PairMatchingController {
         if (mainCode == MainCode.QUIT) {
             return;
         }
+    }
+
+    private void executePairInquery() {
+        String programInfoPreProcessing = InputView.chooseProgramInfo();
+        ProgramInfo programInfo = ProgramInfoConvertor.makeProgramInfo(programInfoPreProcessing);
+        //프로그램이 있는가 검사를 해준다.
+        if (pairMatchingService.havePairThisProgramInfo(programInfo)) {
+            List<String> thisProgramsPair = pairMatchingService.getThisProgramsPair(programInfo);
+            OutputView.showResult(thisProgramsPair);
+        }
+        throw new IllegalArgumentException("매칭 이력이 없습니다.");
     }
 
     private void executePairMatching() {

@@ -28,4 +28,8 @@ public class PairMatchingService {
     public List<String> getThisProgramsPair(ProgramInfo programInfo) {
         return pairMatchingRepository.findPairThisProgram(programInfo);
     }
+
+    public boolean havePairThisProgramInfo(ProgramInfo programInfo) {
+        return pairMatchingRepository.checkThisProgramInfoHave(programInfo);
+    }
 }

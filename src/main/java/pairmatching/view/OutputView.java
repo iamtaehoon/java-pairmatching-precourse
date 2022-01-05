@@ -19,6 +19,5 @@ public class OutputView {
             System.out.println(thisProgramsPair.get(thisProgramsPair.size() - 3) + " : " + thisProgramsPair.get(
                 thisProgramsPair.size() - 2) + " : " + thisProgramsPair.get(thisProgramsPair.size() - 1));
         }
-
     }
 }

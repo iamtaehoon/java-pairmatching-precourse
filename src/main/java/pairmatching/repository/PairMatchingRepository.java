@@ -24,4 +24,8 @@ public class PairMatchingRepository {
         int programIdx = pairMatchingRepository.indexOf(programInfo);
         return pairMatchingRepository.get(programIdx).getCrewNames();
     }
+
+    public boolean checkThisProgramInfoHave(ProgramInfo programInfo) {
+        return pairMatchingRepository.contains(programInfo);
+    }
 }
