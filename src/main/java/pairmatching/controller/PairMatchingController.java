@@ -51,21 +51,15 @@ public class PairMatchingController {
         if (!alreadyHavePair) {
             pairMatchingService.makePairThisProgramInfo(chooseCrews(programInfo),programInfo);
         }
-        //결과를 보여준다.
         List<String> thisProgramsPair = pairMatchingService.getThisProgramsPair(programInfo);
         OutputView.showResult(thisProgramsPair);
-        // 입력정보를 가지고 service - repo에서 조회한다.
     }
 
     private boolean checkThisProgramInfoAlreadyHavePair(ProgramInfo programInfo) {
         if (pairMatchingService.alreadyHavePair(programInfo)) {
-            //재매칭을 물어본다.
             RematchCode rematchCode = RematchCode.find(InputView.chooseReMatching()); //TODO 없으면 재입력 받아야함.
             if (rematchCode == RematchCode.YES) {
                 pairMatchingService.remakePairThisProgramInfo(chooseCrews(programInfo),programInfo);
-            }
-            if (rematchCode == RematchCode.NO) {
-                // 아무것도 안하고 상태유지하기. 필요 없는 부분이 될지도.
             }
             return true;
         }
