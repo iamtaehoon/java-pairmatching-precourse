@@ -32,4 +32,8 @@ public class PairMatchingService {
     public boolean havePairThisProgramInfo(ProgramInfo programInfo) {
         return pairMatchingRepository.checkThisProgramInfoHave(programInfo);
     }
+
+    public void resetAllPair() {
+        pairMatchingRepository.deleteAll();
+    }
 }

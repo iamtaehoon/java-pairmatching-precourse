@@ -28,4 +28,8 @@ public class PairMatchingRepository {
     public boolean checkThisProgramInfoHave(ProgramInfo programInfo) {
         return pairMatchingRepository.contains(programInfo);
     }
+
+    public void deleteAll() {
+        pairMatchingRepository.clear();
+    }
 }

@@ -20,4 +20,8 @@ public class OutputView {
                 thisProgramsPair.size() - 2) + " : " + thisProgramsPair.get(thisProgramsPair.size() - 1));
         }
     }
+
+    public static void showResetMessage() {
+        System.out.println("초기화 되었습니다.");
+    }
 }

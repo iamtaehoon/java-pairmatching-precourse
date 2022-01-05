@@ -37,11 +37,16 @@ public class PairMatchingController {
             executePairInquery();
         }
         if (mainCode == MainCode.RESET) {
-            // executeReset();
+            executeReset();
         }
         if (mainCode == MainCode.QUIT) {
             return;
         }
+    }
+
+    private void executeReset() {
+        pairMatchingService.resetAllPair();
+        OutputView.showResetMessage();
     }
 
     private void executePairInquery() {
@@ -51,6 +56,7 @@ public class PairMatchingController {
         if (pairMatchingService.havePairThisProgramInfo(programInfo)) {
             List<String> thisProgramsPair = pairMatchingService.getThisProgramsPair(programInfo);
             OutputView.showResult(thisProgramsPair);
+            return;
         }
         throw new IllegalArgumentException("매칭 이력이 없습니다.");
     }
