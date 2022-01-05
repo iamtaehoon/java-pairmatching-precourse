@@ -18,4 +18,17 @@ public class PairMatchingService {
         //repository에 programInfo를 넣는다.
         pairMatchingRepository.save(programInfo);
     }
+
+    public boolean alreadyHavePair(ProgramInfo programInfo) {
+        return pairMatchingRepository.alreadyHavePair(programInfo);
+    }
+
+    public void remakePairThisProgramInfo(List<String> crewNames, ProgramInfo programInfo) {
+        pairMatchingRepository.delete(programInfo);
+        makePairThisProgramInfo(crewNames, programInfo);
+    }
+
+    public List<String> getThisProgramsPair(ProgramInfo programInfo) {
+        return pairMatchingRepository.findPairThisProgram(programInfo);
+    }
 }

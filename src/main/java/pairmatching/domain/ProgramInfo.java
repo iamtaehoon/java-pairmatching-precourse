@@ -52,4 +52,8 @@ public class ProgramInfo {
     public int hashCode() {
         return Objects.hash(course, level, mission);
     }
+
+    public List<String> getCrewNames() {
+        return crewNames;
+    }
 }
