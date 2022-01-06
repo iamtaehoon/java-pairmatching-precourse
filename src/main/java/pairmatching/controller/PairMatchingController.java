@@ -4,6 +4,8 @@ import java.util.List;
 
 import pairmatching.code.MainCode;
 import pairmatching.code.RematchCode;
+import pairmatching.domain.Course;
+import pairmatching.domain.Crew;
 import pairmatching.domain.ProgramInfo;
 import pairmatching.service.PairMatchingService;
 import pairmatching.util.CrewConvertor;
@@ -12,14 +14,15 @@ import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
 public class PairMatchingController {
-    private List<String> backendCrewNames;
-    private List<String> frontendCrewNames;
+    private List<Crew> backendCrews;
+    private List<Crew> frontendCrews;
     private MainCode mainCode = null;
     private PairMatchingService pairMatchingService = new PairMatchingService();
 
     public PairMatchingController() {
-        backendCrewNames = CrewConvertor.makeCrewsUsingMdFile("./src/main/resources/backend-crew.md");
-        frontendCrewNames = CrewConvertor.makeCrewsUsingMdFile("./src/main/resources/frontend-crew.md");
+        backendCrews = CrewConvertor.makeCrewsUsingMdFile(Course.BACKEND, "./src/main/resources/backend-crew.md");
+        frontendCrews = CrewConvertor.makeCrewsUsingMdFile(Course.FRONTEND,
+            "./src/main/resources/frontend-crew.md");
     }
 
     public void run() {
@@ -57,7 +60,7 @@ public class PairMatchingController {
     private void executePairInquery() {
         ProgramInfo programInfo = makeProgramInfoUsingInput();
         if (pairMatchingService.havePairThisProgramInfo(programInfo)) {
-            List<String> thisProgramsPair = pairMatchingService.getThisProgramsPair(programInfo);
+            List<Crew> thisProgramsPair = pairMatchingService.getThisProgramsPair(programInfo);
             OutputView.showResult(thisProgramsPair);
             return;
         }
@@ -102,12 +105,12 @@ public class PairMatchingController {
         }
     }
 
-    private List<String> chooseCrews(ProgramInfo programInfo) {
+    private List<Crew> chooseCrews(ProgramInfo programInfo) {
         if (programInfo.isBackend()) {
-            return backendCrewNames;
+            return backendCrews;
         }
         if (programInfo.isFrontend()) {
-            return frontendCrewNames;
+            return frontendCrews;
         }
         throw new IllegalStateException("해당 파일이 존재하지 않습니다.");
     }

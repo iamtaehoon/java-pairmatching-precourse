@@ -9,7 +9,7 @@ public class ProgramInfo {
     private Course course;
     private Level level;
     private Mission mission;
-    private List<String> crewNames = null;
+    private List<Crew> crews = null;
 
     public ProgramInfo(String[] programDetailPreProcessing) {
         this.course = Course.find(programDetailPreProcessing[COURSE_IDX]);
@@ -34,8 +34,8 @@ public class ProgramInfo {
         return course == Course.FRONTEND;
     }
 
-    public void savePair(List<String> crewNames) {
-        this.crewNames = crewNames;
+    public void savePair(List<Crew> crews) {
+        this.crews = crews;
     }
 
     @Override
@@ -53,7 +53,7 @@ public class ProgramInfo {
         return Objects.hash(course, level, mission);
     }
 
-    public List<String> getCrewNames() {
-        return crewNames;
+    public List<Crew> getCrews() {
+        return crews;
     }
 }

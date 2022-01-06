@@ -2,12 +2,14 @@ package pairmatching.view;
 
 import java.util.List;
 
+import pairmatching.domain.Crew;
+
 public class OutputView {
     public static void showErrorMessage(IllegalArgumentException e) {
         System.out.println("[ERROR] " + e.getMessage());
     }
 
-    public static void showResult(List<String> thisProgramsPair) {
+    public static void showResult(List<Crew> thisProgramsPair) {
         for (int i = 0; i < thisProgramsPair.size() / 2 -1; i++) {
             System.out.println(thisProgramsPair.get(i*2) + " : " + thisProgramsPair.get(i*2 + 1));
         }

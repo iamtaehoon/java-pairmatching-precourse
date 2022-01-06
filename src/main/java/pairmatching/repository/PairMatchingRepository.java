@@ -3,6 +3,7 @@ package pairmatching.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import pairmatching.domain.Crew;
 import pairmatching.domain.ProgramInfo;
 
 public class PairMatchingRepository {
@@ -20,9 +21,9 @@ public class PairMatchingRepository {
         pairMatchingRepository.remove(programInfo);
     }
 
-    public List<String> findPairThisProgram(ProgramInfo programInfo) {
+    public List<Crew> findPairThisProgram(ProgramInfo programInfo) {
         int programIdx = pairMatchingRepository.indexOf(programInfo);
-        return pairMatchingRepository.get(programIdx).getCrewNames();
+        return pairMatchingRepository.get(programIdx).getCrews();
     }
 
     public boolean checkThisProgramInfoHave(ProgramInfo programInfo) {
