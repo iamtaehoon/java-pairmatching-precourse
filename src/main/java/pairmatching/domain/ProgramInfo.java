@@ -25,7 +25,7 @@ public class ProgramInfo {
         return course == Course.FRONTEND;
     }
 
-    public void savePair(LinkedHashMap<String, String> pairs) {
+    public void savePairs(LinkedHashMap<String, String> pairs) {
         this.pairs = pairs;
     }
 

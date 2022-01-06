@@ -18,22 +18,27 @@ public class PairMatchingService {
     private int alreadyMatchCnt = 0;
 
     public void makePairThisProgramInfo(ProgramInfo programInfo) {
-        List<Crew> crews = CrewConvertor.chooseCrews(programInfo);
-        LinkedHashMap<String, String> pairs = makePairs(crews);
-        programInfo.savePair(pairs);
-        validateCrewsAlreadyMatch(programInfo);
+        List<String> shuffledCrewNames = shuffleCrewsUsingProgramInfo(programInfo);
+        LinkedHashMap<String, String> pairs = makePairs(shuffledCrewNames);
+        remakePairIfPairIsDuplicate(programInfo, pairs);
+        savePairInProgramInfo(programInfo, pairs);
+    }
+
+    private void savePairInProgramInfo(ProgramInfo programInfo, LinkedHashMap<String, String> pairs) {
         alreadyMatchCnt = 0;
+        programInfo.savePairs(pairs);
         pairMatchingRepository.save(programInfo);
     }
 
-    private LinkedHashMap<String, String> makePairs(List<Crew> crews) {
+    private List<String> shuffleCrewsUsingProgramInfo(ProgramInfo programInfo) {
+        List<Crew> crews = CrewConvertor.chooseCrews(programInfo);
         List<String> crewNames = crews.stream().map(Crew::getName).collect(Collectors.toList());
-        List<String> shuffledCrewNames = Randoms.shuffle(crewNames);
-        return makePair(shuffledCrewNames);
+        return Randoms.shuffle(crewNames);
     }
 
-    private void validateCrewsAlreadyMatch(ProgramInfo programInfo) {
-        boolean alreadyMatch = pairMatchingRepository.validateCrewsAlreadyMatch(programInfo);
+    private void remakePairIfPairIsDuplicate(ProgramInfo programInfo,
+        LinkedHashMap<String, String> pairs) {
+        boolean alreadyMatch = pairMatchingRepository.validateCrewsAlreadyMatch(programInfo, pairs);
         if (alreadyMatch) {
             alreadyMatchCnt += 1;
             makePairThisProgramInfo(programInfo);
@@ -44,7 +49,7 @@ public class PairMatchingService {
         }
     }
 
-    private LinkedHashMap<String, String> makePair(List<String> shuffledCrewNames) {
+    private LinkedHashMap<String, String> makePairs(List<String> shuffledCrewNames) {
         LinkedHashMap<String, String> pairs = new LinkedHashMap<>();
         for (int i = 0; i < shuffledCrewNames.size() - 2; i++) {
             if (isEven(i)) {

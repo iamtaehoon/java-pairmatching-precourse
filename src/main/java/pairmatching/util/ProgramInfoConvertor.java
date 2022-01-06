@@ -7,7 +7,7 @@ import pairmatching.domain.ProgramInfo;
 
 public class ProgramInfoConvertor {
     public static ProgramInfo makeProgramInfo(String programInfoPreProcessing) {
-        String[] programDetailPreProcessing = programInfoPreProcessing.split(", ");
+        String[] programDetailPreProcessing = programInfoPreProcessing.split(PROGRAM_INFO_DETAIL_DELIMETER);
         validateProgramDetailsCnt(programDetailPreProcessing);
         return new ProgramInfo(programDetailPreProcessing);
     }
