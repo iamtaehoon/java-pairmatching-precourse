@@ -1,6 +1,8 @@
 package pairmatching.controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import pairmatching.code.MainCode;
 import pairmatching.code.RematchCode;
@@ -60,7 +62,7 @@ public class PairMatchingController {
     private void executePairInquery() {
         ProgramInfo programInfo = makeProgramInfoUsingInput();
         if (pairMatchingService.havePairThisProgramInfo(programInfo)) {
-            List<Crew> thisProgramsPair = pairMatchingService.getThisProgramsPair(programInfo);
+            LinkedHashMap<String, String> thisProgramsPair = pairMatchingService.getThisProgramsPair(programInfo);
             OutputView.showResult(thisProgramsPair);
             return;
         }

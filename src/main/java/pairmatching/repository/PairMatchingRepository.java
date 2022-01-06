@@ -1,7 +1,9 @@
 package pairmatching.repository;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import pairmatching.domain.Crew;
 import pairmatching.domain.ProgramInfo;
@@ -21,9 +23,9 @@ public class PairMatchingRepository {
         pairMatchingRepository.remove(programInfo);
     }
 
-    public List<Crew> findPairThisProgram(ProgramInfo programInfo) {
+    public LinkedHashMap<String, String> findPairThisProgram(ProgramInfo programInfo) {
         int programIdx = pairMatchingRepository.indexOf(programInfo);
-        return pairMatchingRepository.get(programIdx).getCrews();
+        return pairMatchingRepository.get(programIdx).getPairs();
     }
 
     public boolean checkThisProgramInfoHave(ProgramInfo programInfo) {

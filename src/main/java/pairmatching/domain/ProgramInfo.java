@@ -2,14 +2,17 @@ package pairmatching.domain;
 
 import static pairmatching.Constant.*;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class ProgramInfo {
     private Course course;
     private Level level;
     private Mission mission;
-    private List<Crew> crews = null;
+    private LinkedHashMap<String, String> pairs = new LinkedHashMap<>();
 
     public ProgramInfo(String[] programDetailPreProcessing) {
         this.course = Course.find(programDetailPreProcessing[COURSE_IDX]);
@@ -34,8 +37,8 @@ public class ProgramInfo {
         return course == Course.FRONTEND;
     }
 
-    public void savePair(List<Crew> crews) {
-        this.crews = crews;
+    public void savePair(LinkedHashMap<String, String> pairs) {
+        this.pairs = pairs;
     }
 
     @Override
@@ -53,7 +56,7 @@ public class ProgramInfo {
         return Objects.hash(course, level, mission);
     }
 
-    public List<Crew> getCrews() {
-        return crews;
+    public LinkedHashMap<String, String> getPairs() {
+        return pairs;
     }
 }
