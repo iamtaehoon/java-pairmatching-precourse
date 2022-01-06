@@ -2,7 +2,6 @@ package pairmatching.controller;
 
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import pairmatching.code.MainCode;
 import pairmatching.code.RematchCode;

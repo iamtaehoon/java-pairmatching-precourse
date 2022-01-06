@@ -2,8 +2,6 @@ package pairmatching.domain;
 
 import java.util.Arrays;
 
-import pairmatching.code.MainCode;
-
 public enum Course {
     BACKEND("백엔드"),
     FRONTEND("프론트엔드");
