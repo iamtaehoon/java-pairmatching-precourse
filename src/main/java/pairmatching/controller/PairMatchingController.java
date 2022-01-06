@@ -70,7 +70,6 @@ public class PairMatchingController {
         ProgramInfo programInfo = makeProgramInfoUsingInput();
         if (pairMatchingService.alreadyHavePair(programInfo)) {
             checkRematching(programInfo);
-            OutputView.showResult(pairMatchingService.getThisProgramsPair(programInfo));
             return;
         }
         pairMatchingService.makePairThisProgramInfo(chooseCrews(programInfo), programInfo);
@@ -92,9 +91,11 @@ public class PairMatchingController {
             RematchCode rematchCode = RematchCode.find(InputView.chooseReMatching());
             if (rematchCode == RematchCode.YES) {
                 pairMatchingService.remakePairThisProgramInfo(chooseCrews(programInfo), programInfo);
+                OutputView.showResult(pairMatchingService.getThisProgramsPair(programInfo));
             }
         } catch (IllegalArgumentException e) {
             OutputView.showErrorMessage(e);
+            checkRematching(programInfo);
         }
     }
 
