@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import pairmatching.domain.Crew;
 import pairmatching.domain.ProgramInfo;
@@ -34,5 +36,13 @@ public class PairMatchingRepository {
 
     public void deleteAll() {
         pairMatchingRepository.clear();
+    }
+
+    public boolean validateCrewsAlreadyMatch(ProgramInfo nowProgramInfo) {
+        List<ProgramInfo> programInfosSameCourseAndLevel = pairMatchingRepository.stream()
+            .filter(programInfo -> programInfo.isSameCourseAndLevel(nowProgramInfo)).collect(Collectors.toList());
+        LinkedHashMap<String, String> nowProgramInfoPairs = nowProgramInfo.getPairs();
+        return programInfosSameCourseAndLevel.stream()
+            .anyMatch(programInfo -> programInfo.alreadyMatch(nowProgramInfoPairs));
     }
 }

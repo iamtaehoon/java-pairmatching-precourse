@@ -13,17 +13,28 @@ import pairmatching.repository.PairMatchingRepository;
 
 public class PairMatchingService {
     private PairMatchingRepository pairMatchingRepository = new PairMatchingRepository();
+    private int alreadyMatchCnt = 0;
 
     public void makePairThisProgramInfo(List<Crew> crews, ProgramInfo programInfo) {
-
         List<String> crewNames = crews.stream().map(crew -> crew.getName()).collect(Collectors.toList());
         List<String> shuffledCrewNames = Randoms.shuffle(crewNames);
         LinkedHashMap<String, String> pairs = makePair(shuffledCrewNames);
-        // pairMatchingRepository.validateCrewsAlreadyMatch();
-        // TODO repository에서 검증하는거 찾긴 해야함. 근데 이건 다음에~
-        // TODO 의문: Map으로 만들어야 두개가 짝이 되었는가를 찾아줄텐데, 그렇게 하면 내 원래 방식대로 돌아가버릴텐데?
         programInfo.savePair(pairs);
+        validateCrewsAlreadyMatch(crews, programInfo);
+        alreadyMatchCnt = 0;
         pairMatchingRepository.save(programInfo);
+    }
+
+    private void validateCrewsAlreadyMatch(List<Crew> crews, ProgramInfo programInfo) {
+        boolean alreadyMatch = pairMatchingRepository.validateCrewsAlreadyMatch(programInfo);
+        if (alreadyMatch) {
+            alreadyMatchCnt += 1;
+            makePairThisProgramInfo(crews, programInfo);
+        }
+        if (alreadyMatchCnt >= 3) {
+            alreadyMatchCnt = 0;
+            throw new IllegalArgumentException("매칭을 하지 못했습니다.");
+        }
     }
 
     private LinkedHashMap<String, String> makePair(List<String> shuffledCrewNames) {

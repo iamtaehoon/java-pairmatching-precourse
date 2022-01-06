@@ -59,4 +59,26 @@ public class ProgramInfo {
     public LinkedHashMap<String, String> getPairs() {
         return pairs;
     }
+
+    public boolean isSameCourseAndLevel(ProgramInfo nowProgramInfo) {
+        return (this.course == nowProgramInfo.getCourse()) && (this.level == nowProgramInfo.getLevel());
+    }
+
+    private Course getCourse() {
+        return course;
+    }
+
+    private Level getLevel() {
+        return level;
+    }
+
+    public boolean alreadyMatch(LinkedHashMap<String, String> nowProgramInfoPairs) {
+        for (String firstCrewName : nowProgramInfoPairs.keySet()) {
+            String secondCrewName = nowProgramInfoPairs.get(firstCrewName);
+            if (pairs.get(firstCrewName).equals(secondCrewName)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
