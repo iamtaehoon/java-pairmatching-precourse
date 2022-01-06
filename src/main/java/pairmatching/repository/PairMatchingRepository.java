@@ -35,10 +35,10 @@ public class PairMatchingRepository {
         pairMatchingRepository.clear();
     }
 
-    public boolean validateCrewsAlreadyMatch(ProgramInfo nowProgramInfo) {
+    public boolean validateCrewsAlreadyMatch(ProgramInfo targetProgramInfo) {
+        LinkedHashMap<String, String> nowProgramInfoPairs = targetProgramInfo.getPairs();
         List<ProgramInfo> programInfosSameCourseAndLevel = pairMatchingRepository.stream()
-            .filter(programInfo -> programInfo.isSameCourseAndLevel(nowProgramInfo)).collect(Collectors.toList());
-        LinkedHashMap<String, String> nowProgramInfoPairs = nowProgramInfo.getPairs();
+            .filter(programInfo -> programInfo.isSameCourseAndLevel(targetProgramInfo)).collect(Collectors.toList());
         return programInfosSameCourseAndLevel.stream()
             .anyMatch(programInfo -> programInfo.alreadyMatch(nowProgramInfoPairs));
     }

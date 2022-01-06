@@ -1,5 +1,7 @@
 package pairmatching.controller;
 
+import static pairmatching.ErrorMessage.*;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -64,7 +66,7 @@ public class PairMatchingController {
             OutputView.showResult(thisProgramsPair);
             return;
         }
-        throw new IllegalArgumentException("매칭 이력이 없습니다.");
+        throw new IllegalArgumentException(HAVE_NOT_MATCHING_ERROR);
     }
 
     private void executePairMatching() {
@@ -96,7 +98,7 @@ public class PairMatchingController {
 
     private void checkRematching(ProgramInfo programInfo) {
         try {
-            RematchCode rematchCode = RematchCode.find(InputView.chooseReMatching()); //TODO 없으면 재입력 받아야함.
+            RematchCode rematchCode = RematchCode.find(InputView.chooseReMatching());
             if (rematchCode == RematchCode.YES) {
                 pairMatchingService.remakePairThisProgramInfo(chooseCrews(programInfo), programInfo);
             }
@@ -112,7 +114,7 @@ public class PairMatchingController {
         if (programInfo.isFrontend()) {
             return frontendCrews;
         }
-        throw new IllegalStateException("해당 파일이 존재하지 않습니다.");
+        throw new IllegalStateException(FILE_NOT_FOUND_ERROR);
     }
 
     private MainCode chooseMainFunction() {

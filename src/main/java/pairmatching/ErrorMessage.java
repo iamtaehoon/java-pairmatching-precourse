@@ -11,4 +11,5 @@ public abstract class ErrorMessage {
     public static String DUPLICATE_CREW_NAME_ERROR = "파일에 중복된 이름의 크루가 존재합니다.";
     public static String CREW_CNT_LACK_ERROR = "해당 파일에 존재하는 크루들이 2명보다 적습니다.";
     public static String INVALID_INPUT_FORM_ERROR = "입력값의 양식이 잘못되었습니다.";
+    public static String HAVE_NOT_MATCHING_ERROR = "매칭 이력이 없습니다.";
 }

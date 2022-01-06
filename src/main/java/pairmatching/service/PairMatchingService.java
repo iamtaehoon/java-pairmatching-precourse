@@ -1,5 +1,6 @@
 package pairmatching.service;
 
+import static pairmatching.Constant.*;
 import static pairmatching.ErrorMessage.*;
 
 import java.util.LinkedHashMap;
@@ -31,7 +32,7 @@ public class PairMatchingService {
             alreadyMatchCnt += 1;
             makePairThisProgramInfo(crews, programInfo);
         }
-        if (alreadyMatchCnt >= 3) {
+        if (alreadyMatchCnt >= ATTEMP_CNT) {
             alreadyMatchCnt = 0;
             throw new IllegalArgumentException(CANT_MATCHING_ERROR);
         }
