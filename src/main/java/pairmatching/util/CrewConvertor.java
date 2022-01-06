@@ -15,7 +15,7 @@ import pairmatching.domain.Crew;
 
 public class CrewConvertor {
     public static List<Crew> makeCrewsUsingMdFile(Course course, String filePath) {
-        List<String> crewNames = null;
+        List<String> crewNames;
         try {
             crewNames = Files.readAllLines(Paths.get(filePath));
         } catch (IOException e) {
@@ -32,8 +32,7 @@ public class CrewConvertor {
     }
 
     private static void validateCrewsNameDuplicate(List<String> crewNames) {
-        HashSet<String> crewNamesSet = new HashSet<>();
-        crewNamesSet.addAll(crewNames);
+        HashSet<String> crewNamesSet = new HashSet<>(crewNames);
         if (crewNamesSet.size() != crewNames.size()) {
             throw new IllegalStateException(DUPLICATE_CREW_NAME_ERROR);
         }

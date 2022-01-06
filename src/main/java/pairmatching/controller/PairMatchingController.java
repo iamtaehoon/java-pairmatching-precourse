@@ -17,10 +17,10 @@ import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
 public class PairMatchingController {
-    private List<Crew> backendCrews;
-    private List<Crew> frontendCrews;
+    private final List<Crew> backendCrews;
+    private final List<Crew> frontendCrews;
     private MainCode mainCode = null;
-    private PairMatchingService pairMatchingService = new PairMatchingService();
+    private final PairMatchingService pairMatchingService = new PairMatchingService();
 
     public PairMatchingController() {
         backendCrews = CrewConvertor.makeCrewsUsingMdFile(Course.BACKEND, Course.BACKEND.getPath());
@@ -49,9 +49,6 @@ public class PairMatchingController {
         if (mainCode == MainCode.RESET) {
             executeReset();
         }
-        if (mainCode == MainCode.QUIT) {
-            return;
-        }
     }
 
     private void executeReset() {
@@ -73,7 +70,7 @@ public class PairMatchingController {
         ProgramInfo programInfo = makeProgramInfoUsingInput();
         boolean alreadyHavePair = checkThisProgramInfoAlreadyHavePair(programInfo);
         if (!alreadyHavePair) {
-            pairMatchingService.makePairThisProgramInfo(chooseCrews(programInfo),programInfo);
+            pairMatchingService.makePairThisProgramInfo(chooseCrews(programInfo), programInfo);
         }
         OutputView.showResult(pairMatchingService.getThisProgramsPair(programInfo));
     }

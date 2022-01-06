@@ -13,11 +13,11 @@ import pairmatching.domain.ProgramInfo;
 import pairmatching.repository.PairMatchingRepository;
 
 public class PairMatchingService {
-    private PairMatchingRepository pairMatchingRepository = new PairMatchingRepository();
+    private final PairMatchingRepository pairMatchingRepository = new PairMatchingRepository();
     private int alreadyMatchCnt = 0;
 
     public void makePairThisProgramInfo(List<Crew> crews, ProgramInfo programInfo) {
-        List<String> crewNames = crews.stream().map(crew -> crew.getName()).collect(Collectors.toList());
+        List<String> crewNames = crews.stream().map(Crew::getName).collect(Collectors.toList());
         List<String> shuffledCrewNames = Randoms.shuffle(crewNames);
         LinkedHashMap<String, String> pairs = makePair(shuffledCrewNames);
         programInfo.savePair(pairs);
@@ -40,9 +40,9 @@ public class PairMatchingService {
 
     private LinkedHashMap<String, String> makePair(List<String> shuffledCrewNames) {
         LinkedHashMap<String, String> pairs = new LinkedHashMap<>();
-        for (int i = 0; i < shuffledCrewNames.size()-2; i++) {
+        for (int i = 0; i < shuffledCrewNames.size() - 2; i++) {
             if (isEven(i)) {
-                pairs.put(shuffledCrewNames.get(i),shuffledCrewNames.get(i+1));
+                pairs.put(shuffledCrewNames.get(i), shuffledCrewNames.get(i + 1));
             }
             if (!isEven(i)) {
                 pairs.put(shuffledCrewNames.get(i), shuffledCrewNames.get(i - 1));
@@ -58,7 +58,8 @@ public class PairMatchingService {
         return i % 2 == 0;
     }
 
-    private LinkedHashMap<String, String> makePairInEvenLastCase(List<String> shuffledCrewNames, LinkedHashMap<String, String> pairs) {
+    private LinkedHashMap<String, String> makePairInEvenLastCase(List<String> shuffledCrewNames,
+        LinkedHashMap<String, String> pairs) {
         pairs.put(shuffledCrewNames.get(shuffledCrewNames.size() - 2),
             shuffledCrewNames.get(shuffledCrewNames.size() - 1));
         pairs.put(shuffledCrewNames.get(shuffledCrewNames.size() - 1),
@@ -66,7 +67,8 @@ public class PairMatchingService {
         return pairs;
     }
 
-    private LinkedHashMap<String, String> makePairInOddLastCase(List<String> shuffledCrewNames, LinkedHashMap<String, String> pairs) {
+    private LinkedHashMap<String, String> makePairInOddLastCase(List<String> shuffledCrewNames,
+        LinkedHashMap<String, String> pairs) {
         pairs.put(shuffledCrewNames.get(shuffledCrewNames.size() - 2),
             shuffledCrewNames.get(shuffledCrewNames.size() - 1));
         pairs.put(shuffledCrewNames.get(shuffledCrewNames.size() - 1),

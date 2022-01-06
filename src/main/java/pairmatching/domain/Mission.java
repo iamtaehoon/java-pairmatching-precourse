@@ -9,7 +9,7 @@ public enum Mission {
     SHOPPING_CART("장바구니"), PAYMENT("결제"), SUBWAY_LINE("지하철노선도"),
     PERFOMANCE_IMPROVEMENT("성능개선"), DISTRIBUTE("배포");
 
-    private String name;
+    private final String name;
 
     Mission(String name) {
         this.name = name;

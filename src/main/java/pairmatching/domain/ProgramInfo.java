@@ -6,9 +6,9 @@ import java.util.LinkedHashMap;
 import java.util.Objects;
 
 public class ProgramInfo {
-    private Course course;
-    private Level level;
-    private Mission mission;
+    private final Course course;
+    private final Level level;
+    private final Mission mission;
     private LinkedHashMap<String, String> pairs = new LinkedHashMap<>();
 
     public ProgramInfo(String[] programDetailPreProcessing) {
@@ -31,10 +31,12 @@ public class ProgramInfo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+        if (o == null || getClass() != o.getClass()) {
             return false;
+        }
         ProgramInfo that = (ProgramInfo)o;
         return course == that.course && level == that.level && mission == that.mission;
     }

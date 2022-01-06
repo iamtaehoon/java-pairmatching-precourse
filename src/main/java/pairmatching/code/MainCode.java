@@ -7,7 +7,7 @@ import java.util.Arrays;
 public enum MainCode {
     MATCHING("1"), INQUERY("2"), RESET("3"), QUIT("Q");
 
-    private String code;
+    private final String code;
 
     MainCode(String code) {
         this.code = code;

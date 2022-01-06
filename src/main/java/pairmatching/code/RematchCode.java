@@ -7,7 +7,7 @@ import java.util.Arrays;
 public enum RematchCode {
     YES("네"), NO("아니오");
 
-    private String code;
+    private final String code;
 
     RematchCode(String code) {
         this.code = code;

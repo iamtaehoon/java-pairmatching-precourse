@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import pairmatching.domain.ProgramInfo;
 
 public class PairMatchingRepository {
-    private ArrayList<ProgramInfo> pairMatchingRepository = new ArrayList<>();
+    private final ArrayList<ProgramInfo> pairMatchingRepository = new ArrayList<>();
 
     public void save(ProgramInfo programInfo) {
         pairMatchingRepository.add(programInfo);
