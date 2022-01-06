@@ -17,15 +17,6 @@ public class ProgramInfo {
         this.mission = level.findMission(programDetailPreProcessing[MISSION_IDX]);
     }
 
-    @Override
-    public String toString() {
-        return "ProgramInfo{" +
-            "course=" + course +
-            ", level=" + level +
-            ", mission=" + mission +
-            '}';
-    }
-
     public boolean isBackend() {
         return course == Course.BACKEND;
     }

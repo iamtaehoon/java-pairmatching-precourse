@@ -1,5 +1,7 @@
 package pairmatching.domain;
 
+import static pairmatching.ErrorMessage.*;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -23,14 +25,14 @@ public enum Level {
         return Arrays.stream(Level.values())
             .filter(level -> inputLevel.equals(level.getName()))
             .findAny()
-            .orElseThrow(() -> new IllegalArgumentException("해당되는 레벨은 존재하지 않습니다."));
+            .orElseThrow(() -> new IllegalArgumentException(LEVEL_NOT_FOUND_ERROR));
     }
 
     public Mission findMission(String inputMissionName) {
         return getMissions().stream()
             .filter(mission -> inputMissionName.equals(mission.getName()))
             .findAny()
-            .orElseThrow(() -> new IllegalArgumentException("해당되는 미션은 이 단계에 존재하지 않습니다."));
+            .orElseThrow(() -> new IllegalArgumentException(MISSION_NOT_FOUND_THIS_LEVEL_ERROR));
     }
 
     private String getName() {

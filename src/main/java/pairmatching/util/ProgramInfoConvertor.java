@@ -1,6 +1,7 @@
 package pairmatching.util;
 
 import static pairmatching.Constant.*;
+import static pairmatching.ErrorMessage.*;
 
 import pairmatching.domain.ProgramInfo;
 
@@ -13,7 +14,7 @@ public class ProgramInfoConvertor {
 
     private static void validateProgramDetailsCnt(String[] programDetailsPreProcessing) {
         if (programDetailsPreProcessing.length != PROGRAM_INFO_DETAILS_CNT) {
-            throw new IllegalArgumentException("입력값의 양식이 잘못되었습니다.");
+            throw new IllegalArgumentException(INVALID_INPUT_FORM_ERROR);
         }
     }
 }

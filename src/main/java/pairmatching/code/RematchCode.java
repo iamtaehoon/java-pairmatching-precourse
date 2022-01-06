@@ -1,5 +1,7 @@
 package pairmatching.code;
 
+import static pairmatching.ErrorMessage.*;
+
 import java.util.Arrays;
 
 public enum RematchCode {
@@ -15,7 +17,7 @@ public enum RematchCode {
         return Arrays.stream(RematchCode.values())
             .filter(code -> inputCode.equals(code.getCode()))
             .findAny()
-            .orElseThrow(() -> new IllegalArgumentException("해당되는 코드는 존재하지 않습니다."));
+            .orElseThrow(() -> new IllegalArgumentException(CODE_NOT_FOUND_ERROR));
     }
 
     private String getCode() {

@@ -1,5 +1,7 @@
 package pairmatching.domain;
 
+import static pairmatching.ErrorMessage.*;
+
 import java.util.Arrays;
 
 public enum Mission {
@@ -17,7 +19,7 @@ public enum Mission {
         return Arrays.stream(Mission.values())
             .filter(mission -> missionName.equals(mission.getName()))
             .findAny()
-            .orElseThrow(() -> new IllegalArgumentException("해당되는 미션은 존재하지 않습니다."));
+            .orElseThrow(() -> new IllegalArgumentException(MISSION_NOT_FOUND_ERROR));
 
     }
 

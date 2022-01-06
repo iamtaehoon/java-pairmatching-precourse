@@ -1,5 +1,7 @@
 package pairmatching.service;
 
+import static pairmatching.ErrorMessage.*;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +33,7 @@ public class PairMatchingService {
         }
         if (alreadyMatchCnt >= 3) {
             alreadyMatchCnt = 0;
-            throw new IllegalArgumentException("매칭을 하지 못했습니다.");
+            throw new IllegalArgumentException(CANT_MATCHING_ERROR);
         }
     }
 
