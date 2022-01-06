@@ -21,9 +21,8 @@ public class PairMatchingController {
     private PairMatchingService pairMatchingService = new PairMatchingService();
 
     public PairMatchingController() {
-        backendCrews = CrewConvertor.makeCrewsUsingMdFile(Course.BACKEND, "./src/main/resources/backend-crew.md");
-        frontendCrews = CrewConvertor.makeCrewsUsingMdFile(Course.FRONTEND,
-            "./src/main/resources/frontend-crew.md");
+        backendCrews = CrewConvertor.makeCrewsUsingMdFile(Course.BACKEND, Course.BACKEND.getPath());
+        frontendCrews = CrewConvertor.makeCrewsUsingMdFile(Course.FRONTEND, Course.FRONTEND.getPath());
     }
 
     public void run() {
