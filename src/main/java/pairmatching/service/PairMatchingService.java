@@ -17,13 +17,17 @@ public class PairMatchingService {
     private int alreadyMatchCnt = 0;
 
     public void makePairThisProgramInfo(List<Crew> crews, ProgramInfo programInfo) {
-        List<String> crewNames = crews.stream().map(Crew::getName).collect(Collectors.toList());
-        List<String> shuffledCrewNames = Randoms.shuffle(crewNames);
-        LinkedHashMap<String, String> pairs = makePair(shuffledCrewNames);
+        LinkedHashMap<String, String> pairs = makePairs(crews);
         programInfo.savePair(pairs);
         validateCrewsAlreadyMatch(crews, programInfo);
         alreadyMatchCnt = 0;
         pairMatchingRepository.save(programInfo);
+    }
+
+    private LinkedHashMap<String, String> makePairs(List<Crew> crews) {
+        List<String> crewNames = crews.stream().map(Crew::getName).collect(Collectors.toList());
+        List<String> shuffledCrewNames = Randoms.shuffle(crewNames);
+        return makePair(shuffledCrewNames);
     }
 
     private void validateCrewsAlreadyMatch(List<Crew> crews, ProgramInfo programInfo) {
