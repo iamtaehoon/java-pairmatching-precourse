@@ -11,15 +11,17 @@ import camp.nextstep.edu.missionutils.Randoms;
 import pairmatching.domain.Crew;
 import pairmatching.domain.ProgramInfo;
 import pairmatching.repository.PairMatchingRepository;
+import pairmatching.util.CrewConvertor;
 
 public class PairMatchingService {
     private final PairMatchingRepository pairMatchingRepository = new PairMatchingRepository();
     private int alreadyMatchCnt = 0;
 
-    public void makePairThisProgramInfo(List<Crew> crews, ProgramInfo programInfo) {
+    public void makePairThisProgramInfo(ProgramInfo programInfo) {
+        List<Crew> crews = CrewConvertor.chooseCrews(programInfo);
         LinkedHashMap<String, String> pairs = makePairs(crews);
         programInfo.savePair(pairs);
-        validateCrewsAlreadyMatch(crews, programInfo);
+        validateCrewsAlreadyMatch(programInfo);
         alreadyMatchCnt = 0;
         pairMatchingRepository.save(programInfo);
     }
@@ -30,11 +32,11 @@ public class PairMatchingService {
         return makePair(shuffledCrewNames);
     }
 
-    private void validateCrewsAlreadyMatch(List<Crew> crews, ProgramInfo programInfo) {
+    private void validateCrewsAlreadyMatch(ProgramInfo programInfo) {
         boolean alreadyMatch = pairMatchingRepository.validateCrewsAlreadyMatch(programInfo);
         if (alreadyMatch) {
             alreadyMatchCnt += 1;
-            makePairThisProgramInfo(crews, programInfo);
+            makePairThisProgramInfo(programInfo);
         }
         if (alreadyMatchCnt >= ATTEMP_CNT) {
             alreadyMatchCnt = 0;
@@ -84,9 +86,9 @@ public class PairMatchingService {
         return pairMatchingRepository.alreadyHavePair(programInfo);
     }
 
-    public void remakePairThisProgramInfo(List<Crew> crews, ProgramInfo programInfo) {
+    public void remakePairThisProgramInfo(ProgramInfo programInfo) {
         pairMatchingRepository.delete(programInfo);
-        makePairThisProgramInfo(crews, programInfo);
+        makePairThisProgramInfo(programInfo);
     }
 
     public LinkedHashMap<String, String> getThisProgramsPair(ProgramInfo programInfo) {
