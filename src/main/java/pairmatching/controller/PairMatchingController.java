@@ -68,10 +68,12 @@ public class PairMatchingController {
 
     private void executePairMatching() {
         ProgramInfo programInfo = makeProgramInfoUsingInput();
-        boolean alreadyHavePair = checkThisProgramInfoAlreadyHavePair(programInfo);
-        if (!alreadyHavePair) {
-            pairMatchingService.makePairThisProgramInfo(chooseCrews(programInfo), programInfo);
+        if (pairMatchingService.alreadyHavePair(programInfo)) {
+            checkRematching(programInfo);
+            OutputView.showResult(pairMatchingService.getThisProgramsPair(programInfo));
+            return;
         }
+        pairMatchingService.makePairThisProgramInfo(chooseCrews(programInfo), programInfo);
         OutputView.showResult(pairMatchingService.getThisProgramsPair(programInfo));
     }
 
@@ -83,14 +85,6 @@ public class PairMatchingController {
             OutputView.showErrorMessage(e);
             return makeProgramInfoUsingInput();
         }
-    }
-
-    private boolean checkThisProgramInfoAlreadyHavePair(ProgramInfo programInfo) {
-        if (pairMatchingService.alreadyHavePair(programInfo)) {
-            checkRematching(programInfo);
-            return true;
-        }
-        return false;
     }
 
     private void checkRematching(ProgramInfo programInfo) {
