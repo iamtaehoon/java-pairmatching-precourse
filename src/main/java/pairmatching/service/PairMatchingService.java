@@ -2,6 +2,7 @@ package pairmatching.service;
 
 import java.util.List;
 
+import camp.nextstep.edu.missionutils.Randoms;
 import pairmatching.domain.Course;
 import pairmatching.domain.Crew;
 import pairmatching.domain.Pairs;
@@ -39,7 +40,8 @@ public class PairMatchingService {
     private Pairs makePairs(ProgramInfo programInfo) {
         Course course = programInfo.getCourse();
         List<Crew> crews = CrewConvertor.getCrews(course);
-        return new Pairs(crews);
+        List<Crew> shuffledCrews = Randoms.shuffle(crews);
+        return new Pairs(shuffledCrews);
     }
 
     public boolean alreadyHaveThisProgramInfo(ProgramInfo programInfo) {
