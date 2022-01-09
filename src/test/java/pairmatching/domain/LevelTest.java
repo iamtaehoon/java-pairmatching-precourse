@@ -10,6 +10,6 @@ class LevelTest {
 
     @Test
     void 레벨안_미션_있음_정상() {
-        Level.find("레벨1").hasMission(Mission.NUMBER_BASEBALL);
+        Level.find("레벨1").hasMission("숫자야구게임");
     }
 }

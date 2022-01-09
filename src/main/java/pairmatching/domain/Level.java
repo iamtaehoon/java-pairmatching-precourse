@@ -30,7 +30,8 @@ public enum Level {
         return name;
     }
 
-    public Mission hasMission(Mission inputMission) {
+    public Mission hasMission(String inputMissionName) {
+        Mission inputMission = Mission.find(inputMissionName);
         return this.missions.stream()
             .filter(mission -> mission == inputMission)
             .findAny()
