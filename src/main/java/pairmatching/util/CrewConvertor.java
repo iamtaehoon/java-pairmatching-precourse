@@ -18,10 +18,8 @@ public class CrewConvertor {
     private static List<Crew> frontendCrews;
 
     static {
-        backendCrews = makeCrews(Course.BACKEND,
-            "/Users/taehoon/Desktop/wooacourse_test/java-pairmatching-precourse/src/main/resources/backend-crew.md");
-        frontendCrews = makeCrews(Course.FRONTEND,
-            "/Users/taehoon/Desktop/wooacourse_test/java-pairmatching-precourse/src/main/resources/frontend-crew.md");
+        backendCrews = makeCrews(Course.BACKEND, Course.BACKEND.getPath());
+        frontendCrews = makeCrews(Course.FRONTEND, Course.FRONTEND.getPath());
     }
 
     public static List<Crew> makeCrews(Course course, String pathPreProcessing) {

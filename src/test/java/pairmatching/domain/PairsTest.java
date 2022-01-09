@@ -17,6 +17,7 @@ class PairsTest {
         for (Pair pair : pairs.getPairs()) {
             System.out.println(pair);
         }
+        //테스트 어떻게하지..?
     }
 
 }
