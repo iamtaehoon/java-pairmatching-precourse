@@ -10,7 +10,7 @@ public enum Level {
     LEVEL3("레벨3", Collections.EMPTY_LIST),
     LEVEL4("레벨4", Arrays.asList(Mission.PERFOMANCE_IMPROVEMENT, Mission.DISTRIBUTE)),
     LEVEL5("레벨5", Collections.EMPTY_LIST);
-    
+
     private String name;
     private List<Mission> missions;
 
