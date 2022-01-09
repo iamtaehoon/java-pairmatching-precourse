@@ -39,8 +39,7 @@ public class PairMatchingService {
 
     private Pairs makePairs(ProgramInfo programInfo) {
         Course course = programInfo.getCourse();
-        List<Crew> crews = CrewConvertor.getCrews(course);
-        List<Crew> shuffledCrews = Randoms.shuffle(crews);
+        List<Crew> shuffledCrews = Randoms.shuffle(CrewConvertor.getCrews(course));
         return new Pairs(shuffledCrews);
     }
 
@@ -52,5 +51,9 @@ public class PairMatchingService {
         pairMatchingRepository.delete(programInfo);
         matchPairsThisProgramInfo(programInfo);
         return programInfo.getPairs();
+    }
+
+    public Pairs getPairs(ProgramInfo programInfo) {
+        return pairMatchingRepository.findThisProgramInfoPairs(programInfo);
     }
 }

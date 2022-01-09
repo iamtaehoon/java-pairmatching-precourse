@@ -29,4 +29,9 @@ public class PairMatchingRepository {
     public void delete(ProgramInfo programInfo) {
         pairMatchingRepository.remove(programInfo);
     }
+
+    public Pairs findThisProgramInfoPairs(ProgramInfo programInfo) {
+        int idx = pairMatchingRepository.indexOf(programInfo);
+        return pairMatchingRepository.get(idx).getPairs();
+    }
 }

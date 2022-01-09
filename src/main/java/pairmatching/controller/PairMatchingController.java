@@ -24,12 +24,25 @@ public class PairMatchingController {
         if (mainCode == MainCode.MATCHING) {
             executeMatching();
         }
-        // if (mainCode == MainCode.INQUERY) {
-        //     executeInquery();
-        // }
+        if (mainCode == MainCode.INQUERY) {
+            executeInquery();
+        }
         // if (mainCode == MainCode.CLEAR) {
         //     executeClear();
         // }
+    }
+
+    private void executeInquery() {
+        try {
+            ProgramInfo programInfo = ProgramInfoConvertor.makeProgramInfo(InputView.enterProgramInfo());
+            if (!pairMatchingService.alreadyHaveThisProgramInfo(programInfo)) {
+                throw new IllegalArgumentException("아직 매칭되지 않았습니다.");
+            }
+            OutputView.showPairs(pairMatchingService.getPairs(programInfo));
+        } catch (IllegalArgumentException e) {
+            OutputView.showErrorMessage(e);
+            executeMatching();
+        }
     }
 
     private void executeMatching() {
