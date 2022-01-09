@@ -100,10 +100,6 @@ public class PairMatchingService {
         return pairMatchingRepository.findPairThisProgram(programInfo);
     }
 
-    public boolean havePairThisProgramInfo(ProgramInfo programInfo) {
-        return pairMatchingRepository.checkThisProgramInfoHave(programInfo);
-    }
-
     public void resetAllPair() {
         pairMatchingRepository.deleteAll();
     }

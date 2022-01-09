@@ -13,12 +13,8 @@ import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
 public class PairMatchingController {
-
     private MainCode mainCode = null;
     private final PairMatchingService pairMatchingService = new PairMatchingService();
-
-    public PairMatchingController() {
-    }
 
     public void run() {
         while (mainCode != MainCode.QUIT) {
@@ -51,7 +47,7 @@ public class PairMatchingController {
 
     private void executePairInquery() {
         ProgramInfo programInfo = makeProgramInfoUsingInput();
-        if (pairMatchingService.havePairThisProgramInfo(programInfo)) {
+        if (pairMatchingService.alreadyHavePair(programInfo)) {
             LinkedHashMap<String, String> thisProgramsPair = pairMatchingService.getThisProgramsPair(programInfo);
             OutputView.showResult(thisProgramsPair);
             return;
