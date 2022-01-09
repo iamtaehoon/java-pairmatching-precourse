@@ -1,13 +1,16 @@
 package pairmatching.controller;
 
 import pairmatching.code.MainCode;
+import pairmatching.code.RematchCode;
+import pairmatching.domain.Pairs;
 import pairmatching.domain.ProgramInfo;
+import pairmatching.service.PairMatchingService;
 import pairmatching.util.ProgramInfoConvertor;
 import pairmatching.view.InputView;
 import pairmatching.view.OutputView;
 
 public class PairMatchingController {
-    // private PairMatchingService = new PairMatchingService();
+    private PairMatchingService pairMatchingService = new PairMatchingService();
     private MainCode mainCode = null;
 
     public void run() {
@@ -19,7 +22,7 @@ public class PairMatchingController {
 
     private void executeFunction(MainCode mainCode) {
         if (mainCode == MainCode.MATCHING) {
-            executeMatching();            
+            executeMatching();
         }
         // if (mainCode == MainCode.INQUERY) {
         //     executeInquery();
@@ -32,10 +35,28 @@ public class PairMatchingController {
     private void executeMatching() {
         try {
             ProgramInfo programInfo = ProgramInfoConvertor.makeProgramInfo(InputView.enterProgramInfo());
-            System.out.println(programInfo);
+            if (pairMatchingService.alreadyHaveThisProgramInfo(programInfo)) {
+                determineRematching(programInfo);
+                return;
+            }
+            Pairs pairs = pairMatchingService.matchPairsThisProgramInfo(programInfo);
+            OutputView.showPairs(pairs);
         } catch (IllegalArgumentException e) {
             OutputView.showErrorMessage(e);
             executeMatching();
+        }
+    }
+
+    private void determineRematching(ProgramInfo programInfo) {
+        try {
+            RematchCode rematchCode = RematchCode.find(InputView.enterRematch());
+            if (rematchCode == RematchCode.YES) {
+                Pairs pairs = pairMatchingService.rematchPairsThisProgramInfo(programInfo);
+                OutputView.showPairs(pairs);
+            }
+        } catch (IllegalArgumentException e) {
+            OutputView.showErrorMessage(e);
+            determineRematching(programInfo);
         }
     }
 

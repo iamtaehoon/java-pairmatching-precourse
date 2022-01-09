@@ -41,14 +41,10 @@ public class Pairs {
         return Collections.unmodifiableList(pairs);
     }
 
-    public boolean duplicateSomePair(Pairs pairToCompare) {
-        int duplicatePairCnt = 0;
+    public boolean duplicatePair(Pairs pairToCompare) {
         for (Pair pair : pairToCompare.getPairs()) {
-            if (duplicatePairCnt >= 3) {
-                return true;
-            }
             if (pairs.contains(pair)) {
-                duplicatePairCnt += 1;
+                return true;
             }
         }
         return false;

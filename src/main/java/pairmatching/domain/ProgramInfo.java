@@ -14,6 +14,14 @@ public class ProgramInfo {
         this.mission = mission;
     }
 
+    public Course getCourse() {
+        return course;
+    }
+
+    public Pairs getPairs() {
+        return pairs;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -37,5 +45,9 @@ public class ProgramInfo {
             ", mission=" + mission +
             ", pairs=" + pairs +
             '}';
+    }
+
+    public void savePairs(Pairs pairs) {
+        this.pairs = pairs;
     }
 }
